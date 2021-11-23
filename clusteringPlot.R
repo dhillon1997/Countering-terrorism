@@ -1,0 +1,10 @@
+data=read.csv("C:\\Artificial Intelligence Project\\analysis\\graphicalRep.csv", header=TRUE,sep=",",encoding="UTF-8", stringsAsFactors = FALSE)
+head(data)
+library(ggplot2)
+ggplot(data,aes(polarity,subjectivity,color= Term)) + geom_point()
+set.seed(20)
+dataCluster<- kmeans(data[,2:3],3,nstart = 20)
+dataCluster
+table(dataCluster$cluster,data$Term)
+dataCluster$cluster<- as.factor(dataCluster$cluster)
+ggplot(data,aes(polarity,subjectivity,color=dataCluster$cluster))+geom_point()
